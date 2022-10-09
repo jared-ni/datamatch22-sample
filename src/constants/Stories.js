@@ -1,0 +1,17 @@
+export const StoryList = [
+  'My roommate matched with a hot guy on the swim team... (1/2)',
+  "...and I matched with the slightly less hot guy in the background of all the other guy's photos. Success! (2/2)",
+  'Both my blockmates secretly went on repeat dates',
+  "me! we might not ever date but I got laid and we flirt all the time now so I'm pumped",
+  'I ended up ****ing a guy who was my roommates datamatch :)',
+  "I've definitely heard of friends of friends getting 2-3 month relationships from this!",
+  'I hooked up with one of my matches last year, which was the intended outcome at the time',
+  "3 of my close friends ended up having some valentine's day fun because of datamatch!!",
+  'A friend of mine met their first significant other of college because of it',
+  'friend got a gf out of it',
+  'I went on a date but left the country #corona so that kinda stunted anything happening ',
+  'one friend caught feels, other dude caught free food, what a time',
+  "So many Harvard students I know who are *in* Datamatch's team are cuffed to each other. is this insider trading?",
+  'Yes! One of my friends found her current boyfriend through Datamatch!',
+  'one of my friends got like 89 matches',
+];

@@ -1,0 +1,7 @@
+node_modules/
+
+# don't push log files up
+*.log
+
+# don't push keys up
+.runtimeconfig.json

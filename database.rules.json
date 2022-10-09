@@ -1,0 +1,417 @@
+{
+  "rules": {
+    "codes": {
+      // school admins can read all codes
+      ".read": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() && now < root.child('unix').child('dateOptions').val()",
+      ".write": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() && now < root.child('unix').child('dateOptions').val()",
+      "$dateOptionId": {
+        ".write": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() && (!data.exists() || (!newData.exists() && !newData.parent().parent().child('dateOptions').child($dateOptionId).exists()) || (data.exists() && data.child('codeType').val() == 'provided'))",
+        ".read": "root.child('smallProfile').child(auth.uid).child('dateOptionAdmin').exists() && root.child('smallProfile').child(auth.uid).child('dateOptionAdmin').val() == $dateOptionId",
+        "$code": {
+          "claimed": {
+            ".write": "root.child('smallProfile').child(auth.uid).child('dateOptionAdmin').exists() && root.child('smallProfile').child(auth.uid).child('dateOptionAdmin').val() == $dateOptionId"
+          }
+        },
+        ".indexOn": ".value"
+      }
+    },
+
+    "matchCatalog": {
+      "$uid1": {
+        ".read": "auth.uid == $uid1",
+      	".write": "auth.uid == $uid1",
+        "$uid2": {
+          ".read": "auth.uid == $uid2 && root.child('matchCatalog').child(auth.uid).child($uid1).child('matched').val() == true",
+          "unread": {
+            ".write": "auth.uid == $uid2 && root.child('matchCatalog').child(auth.uid).child($uid1).child('matched').val() == true"
+          }
+        }
+      },
+    },
+
+    "messages": {
+      "$match": {
+        // users can only read the messages that correspond to matches they are a part of
+        ".read": "$match.beginsWith(auth.uid) || $match.endsWith(auth.uid)",
+        "$message": {
+          ".write": "($match.beginsWith(auth.uid) || $match.endsWith(auth.uid)) &&
+                     newData.child('name').exists() && ((newData.child('name').val() == 'user1' && $match.beginsWith(auth.uid)) || (newData.child('name').val() == 'user2' && $match.endsWith(auth.uid))) &&
+                     newData.child('text').exists() && newData.child('text').val().length > 0",
+          "emoji": {
+            ".write": "$match.beginsWith(auth.uid) || $match.endsWith(auth.uid)"
+          }
+        }
+      }
+    },
+
+    "matches": {
+      "$match": {
+        // users can only read the matches they are a part of
+        // users can only read search matches if they've matched themselves already
+        // we also block reads to null matches so people can't tell between a search match or a null match
+        ".read": "data.exists() &&
+          				(($match.beginsWith(auth.uid) && (!data.child('searchMatch').exists() || root.child('matchCatalog').child(auth.uid).child($match.replace(auth.uid + '-', '')).child('matched').val() == true)) ||
+          				 ($match.endsWith(auth.uid) && (!data.child('searchMatch').exists() || root.child('matchCatalog').child(auth.uid).child($match.replace('-' + auth.uid, '')).child('matched').val() == true)))",
+        // users can create search, non-date matches
+        ".write": "
+          // make sure match has the user themselves
+          ($match.beginsWith(auth.uid) || $match.endsWith(auth.uid)) &&
+          // not a self-match
+          !($match.beginsWith(auth.uid) && $match.endsWith(auth.uid)) &&
+          // if a search match, make sure canDate doesn't exist and is a search match
+          !data.exists() && newData.child('canDate').val() != true && newData.child('searchMatch').val() == true
+        ",
+        "dateInfo": {
+          // this allows deleting of dateInfo if confirmed and code don't exist
+          ".write": "($match.beginsWith(auth.uid) || $match.endsWith(auth.uid)) && !newData.exists() && !data.child('confirmed').exists() && !data.child('code').exists()",
+          "confirmed": {
+            ".write": "
+              ($match.beginsWith(auth.uid) || $match.endsWith(auth.uid)) &&
+              // if claiming a date: decrement counts + confirmed on match, let validation rules take care of it
+              (!data.exists() ||
+                // cancelling a date: increment counts + delete confirmed on match
+                // if code was datamatch-generated
+    						(newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('codeType').val() != 'generated' ||
+                  // make sure dateOptions/$dateOptionId/total goes up by 1
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() == root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() + 1 &&
+                  // make sure dateOptions/$dateOptionId/days/$cancellingDay/datesAvailable goes up by 1 
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAvailable').val() == root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAvailable').val() + 1 &&
+                  // and make sure dateOptions/$dateOptionId/days/$cancellingDay/datesAvailable doesn't exceed dateOptions/$dateOptionId/days/$cancellingDay/datesAllotted
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAvailable').val() <= root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAllotted').val() &&
+                  // make sure dateOptions/$dateOptionId/days/$cancellingDay/cancellingMatch = $match
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('cancellingMatch').val() == $match &&
+                  // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+                  // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/cancellingDay
+                  data.parent().child('day').val() == newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('cancellingDay').val()
+                ) &&
+                // if code was dateoption-provided
+    						(newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('codeType').val() != 'provided' ||
+                  // make sure dateOptions/$dateOptionId/total goes up by 1
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() == root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() + 1 &&
+                  // make sure dateOptions/$dateOptionId/total doesn't exceed dateOptions/$dateOptionId/totalAllotted
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() <= newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('totalAllotted').val() &&
+                  // make sure dateOptions/$dateOptionId/days/$cancellingDay/cancellingMatch = $match
+                  newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('cancellingMatch').val() == $match &&
+                  // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+                  // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/cancellingDay
+                  data.parent().child('day').val() == newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('cancellingDay').val()
+                ) &&
+                // make sure matches/$match/dateInfo/confirmed was true and now is deleted
+               	data.val() == true && !newData.exists() &&
+                // make sure there is no code on matches/$match/dateInfo/code
+                !data.parent().child('code').exists() &&
+                // current time should be less than 5am of the date
+          			now < root.child('unix').child('' + data.parent().child('day').val()).val()
+              )
+            ",
+            ".validate": "
+            	// claiming a date: decrement counts + confirmed on match
+              // if code was datamatch-generated
+              (root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('codeType').val() != 'generated' ||
+                // make sure dateOptions/$dateOptionId/total goes down by 1
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() + 1 == root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() &&
+                // make sure dateOptions/$dateOptionId/days/$claimingDay/datesAvailable goes down by 1
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAvailable').val() + 1 == root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAvailable').val() &&
+                // and make sure dateOptions/$dateOptionId/days/$claimingDay/datesAvailable doesn't dip below 0
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('datesAvailable').val() >= 0 &&
+                // make sure dateOptions/$dateOptionId/total doesn't dip below 0
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() >= 0 &&
+                // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+                // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/claimingDay
+                data.parent().child('day').val() == newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('claimingDay').val() &&
+                // make sure dateOptions/$dateOptionId/days/$claimingDay/claimingMatch = $match
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('days').child('' + data.parent().child('day').val()).child('claimingMatch').val() == $match
+              ) &&
+              // if code was dateoption-provided
+              (root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('codeType').val() != 'provided' ||
+                // make sure dateOptions/$dateOptionId/total goes down by 1
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() + 1 == root.child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() &&
+                // make sure dateOptions/$dateOptionId/total doesn't dip below 0
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('total').val() >= 0 &&
+                // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+                // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/claimingDay
+                data.parent().child('day').val() == newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('claimingDay').val() &&
+                // make sure dateOptions/$dateOptionId/days/$claimingDay/claimingMatch = $match
+                newData.parent().parent().parent().parent().child('dateOptions').child(data.parent().child('dateOptionId').val()).child('claimingMatch').val() == $match
+              ) &&
+              // make sure matches/$match/dateInfo/confirmed didn't exist and now is true
+              !data.exists() && newData.val() == true
+            "
+          },
+          "$other": {
+            ".write": "$match.beginsWith(auth.uid) || $match.endsWith(auth.uid)"
+          }
+        },
+      },
+      ".indexOn": ["canDate", "dateInfo/day"],
+    },
+
+    // stats stuff
+    "stats": {
+      ".write": false,
+      "totals": {
+        ".read": true,
+      },
+    },
+
+    // users should only be able to read/write their own responses
+    "responses": {
+      "$user_id": {
+        ".read": "auth.uid == $user_id",
+        ".write": "auth.uid == $user_id"
+      }
+    },
+
+    // nobody needs to read the search indices, but can write to their own uid
+    "searchIndex": {
+      "$uid": {
+        ".read": false,
+        ".write": "auth.uid == $uid"
+      },
+      // index on last and searchName for user search feature
+      ".indexOn": ["searchName", "last"],
+    },
+
+  	"smallProfile": {
+			"$user_id": {
+        // users can only read their own profile
+      	".read": "auth.uid == $user_id",
+        // users should only be able to write to their own profile
+      	".write": "auth.uid == $user_id",
+        "name": {
+          ".validate": "newData.val().length > 0"
+        },
+        // onboarded can only happen once
+        "onboarded": {
+          ".validate": "!data.exists() && newData.val() == true"
+        },
+        // users cannot override schoolAdmin, dateOptionAdmin attributes on the profile
+        "schoolAdmin": {
+          ".validate": "data.exists() || !newData.exists()"
+        },
+        "dateOptionAdmin": {
+          ".validate": "data.exists() || !newData.exists()"
+        },
+      },
+    },
+
+    "publicProfile": {
+			"$user_id": {
+        // anyone logged-in can read public profiles
+      	".read": "auth.uid != null",
+        // users should only be able to write to their own profile
+      	".write": "auth.uid == $user_id",
+        "description": {
+          ".validate": "newData.val().length <= 300"
+        },
+        "name": {
+          ".validate": "newData.val().length > 0"
+        },
+      },
+    },
+
+    "privateProfile": {
+			"$user_id": {
+        // users can only read their own private profile
+        ".read": "auth.uid == $user_id",
+        // users should only be able to write to their own profile
+        ".write": "auth.uid == $user_id",
+        "gender": {
+          // read if self or public or mutual and matched
+          ".read": "auth.uid != null && (root.child('publicProfile').child($user_id).child('privacy').val() == 'public' 
+          || (root.child('publicProfile').child($user_id).child('privacy').val() == 'mutual' 
+					&& root.child('matchCatalog').child(auth.uid).child($user_id).exists() 
+					&& root.child('matchCatalog').child(auth.uid).child($user_id).child('matched').val() == true 
+          && root.child('matchCatalog').child($user_id).child(auth.uid).exists() 
+          && root.child('matchCatalog').child($user_id).child(auth.uid).child('matched').val() == true)
+          || auth.uid == $user_id)"
+        },
+        "pronouns": {
+          // read if self or public or mutual and matched
+					".read": "auth.uid != null && (root.child('publicProfile').child($user_id).child('privacy').val() == 'public' 
+          || (root.child('publicProfile').child($user_id).child('privacy').val() == 'mutual' 
+					&& root.child('matchCatalog').child(auth.uid).child($user_id).exists() 
+					&& root.child('matchCatalog').child(auth.uid).child($user_id).child('matched').val() == true 
+          && root.child('matchCatalog').child($user_id).child(auth.uid).exists() 
+          && root.child('matchCatalog').child($user_id).child(auth.uid).child('matched').val() == true)
+          || auth.uid == $user_id)"
+        },
+      },
+    },
+
+    // node for notifications
+    "notifs": {
+      "$user_id": {
+        // users can only read their own notifs
+        ".read": "auth.uid == $user_id",
+        // users should only be able to write to their own notifs
+        ".write": "auth.uid == $user_id",
+      },
+    },
+
+    // node for crush roulette
+    "crushes": {
+      "$user_id": {
+      	// users can only read & write their own crush
+      	".read": "auth.uid == $user_id",
+      	".write": "auth.uid == $user_id",
+      },
+    },
+
+    // node for autocomplete & crush user lookup
+    "emailToName": {
+      "$user_email": {
+        // users can read individually & only write to their own email
+        ".read": "auth.uid != null",
+        ".write": "auth.token.email.replace('.', ',') == $user_email",
+      }
+    },
+
+    "dateOptions": {
+      ".read": true,
+       ".write": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() && now < root.child('unix').child('dateOptions').val() && newData.exists()",
+      "$dateOptionId": {
+        ".write": true,
+        ".validate": "
+            // school admins can write until deadline for editing date options (/unix/dateOptions)
+            root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() && now < root.child('unix').child('dateOptions').val() && newData.exists() ||
+        	(
+            // claiming a date: decrement counts + confirmed on match
+            // if code was datamatch-generated
+            (newData.child('codeType').val() != 'generated' ||
+            // make sure dateOptions/$dateOptionId/total goes down by 1
+            newData.child('total').val() + 1 == data.child('total').val() &&
+            // and make sure dateOptions/$dateOptionId/total doesn't dip below 0
+            newData.child('total').val() >= 0 &&
+            // make sure dateOptions/$dateOptionId/days/$claimingDay/datesAvailable goes down by 1
+            newData.child('days').child('' + newData.child('claimingDay').val()).child('datesAvailable').val() + 1 == data.child('days').child('' + newData.child('claimingDay').val()).child('datesAvailable').val() &&
+            // and make sure dateOptions/$dateOptionId/days/$claimingDay/datesAvailable doesn't dip below 0
+            newData.child('days').child('' + newData.child('claimingDay').val()).child('datesAvailable').val() >= 0 &&
+            // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+            root.child('matches').child(newData.child('days').child('' + newData.child('claimingDay').val()).child('claimingMatch').val()).child('dateInfo').child('dateOptionId').val() == $dateOptionId &&
+            // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/claimingDay
+            root.child('matches').child(newData.child('days').child('' + newData.child('claimingDay').val()).child('claimingMatch').val()).child('dateInfo').child('day').val() == newData.child('claimingDay').val() &&
+            // make sure matches/$match/dateInfo/confirmed didn't exist and now is true
+            !root.child('matches').child(newData.child('days').child('' + newData.child('claimingDay').val()).child('claimingMatch').val()).child('dateInfo').child('confirmed').exists() &&
+            newData.parent().parent().child('matches').child(newData.child('days').child('' + newData.child('claimingDay').val()).child('claimingMatch').val()).child('dateInfo').child('confirmed').val() == true) &&
+            // make sure dateOptions/$dateOptionId/days/$claimingDay/claimingMatch = $match) &&
+            // if code was dateoption-provided
+            (newData.child('codeType').val() != 'provided' ||
+            // make sure dateOptions/$dateOptionId/total goes down by 1
+            newData.child('total').val() + 1 == data.child('total').val() &&
+            // and make sure dateOptions/$dateOptionId/total doesn't dip below 0
+            newData.child('total').val() >= 0 &&
+            // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+            root.child('matches').child(newData.child('claimingMatch').val()).child('dateInfo').child('dateOptionId').val() == $dateOptionId &&
+            // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/claimingDay
+            root.child('matches').child(newData.child('claimingMatch').val()).child('dateInfo').child('day').val() == newData.child('claimingDay').val() &&
+            // make sure matches/$match/dateInfo/confirmed didn't exist and now is true
+            !root.child('matches').child(newData.child('claimingMatch').val()).child('dateInfo').child('confirmed').exists() &&
+            newData.parent().parent().child('matches').child(newData.child('claimingMatch').val()).child('dateInfo').child('confirmed').val() == true)
+          ) || (
+          	// cancelling a date: increment counts + deleted confirmed on match
+            // if code was datamatch-generated
+            (newData.child('codeType').val() != 'generated' || 
+              // make sure dateOptions/$dateOptionId/total goes up by 1
+              newData.child('total').val() == data.child('total').val() + 1 &&
+              // make sure dateOptions/$dateOptionId/days/$cancellingDay/datesAvailable goes up by 1
+              // and make sure dateOptions/$dateOptionId/days/$cancellingDay/datesAvailable doesn't exceed dateOptions/$dateOptionId/days/$cancellingDay/datesAllotted
+              newData.child('days').child('' + newData.child('cancellingDay').val()).child('datesAvailable').val() == data.child('days').child('' + newData.child('cancellingDay').val()).child('datesAvailable').val() + 1 &&
+              newData.child('days').child('' + newData.child('cancellingDay').val()).child('datesAvailable').val() <= data.child('days').child('' + newData.child('cancellingDay').val()).child('datesAllotted').val() &&
+              // make sure dateOptions/$dateOptionId/days/$cancellingDay/cancellingMatch = $match
+              // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+              root.child('matches').child(newData.child('days').child('' + newData.child('cancellingDay').val()).child('cancellingMatch').val()).child('dateInfo').child('dateOptionId').val() == $dateOptionId &&
+              // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/cancellingDay
+              root.child('matches').child(newData.child('days').child('' + newData.child('cancellingDay').val()).child('cancellingMatch').val()).child('dateInfo').child('day').val() == newData.child('cancellingDay').val() &&
+              // make sure matches/$match/dateInfo/confirmed was true and now is deleted
+              root.child('matches').child(newData.child('days').child('' + newData.child('cancellingDay').val()).child('cancellingMatch').val()).child('dateInfo').child('confirmed').val() == true &&
+              !newData.parent().parent().child('matches').child(newData.child('days').child('' + newData.child('cancellingDay').val()).child('cancellingMatch').val()).child('dateInfo').child('confirmed').exists() &&
+              // make sure there is no code on matches/$match/dateInfo/code
+              !root.child('matches').child(newData.child('days').child('' + newData.child('cancellingDay').val()).child('cancellingMatch').val()).child('dateInfo').child('code').exists()
+            ) &&
+            // if code was dateoption-provided
+            (newData.child('codeType').val() != 'provided' ||
+              // make sure dateOptions/$dateOptionId/total goes up by 1
+              newData.child('total').val() == data.child('total').val() + 1 &&
+              // make sure dateOptions/$dateOptionId/total doesn't exceed dateOptions/$dateOptionId/totalAllotted
+              newData.child('total').val() <= data.child('totalAllotted').val() &&
+              // make sure dateOptions/$dateOptionId/days/$cancellingDay/cancellingMatch = $match
+              // make sure matches/$match/dateInfo/dateOptionId == $dateOptionId
+              root.child('matches').child(newData.child('cancellingMatch').val()).child('dateInfo').child('dateOptionId').val() == $dateOptionId &&
+              // make sure matches/$match/dateInfo/day == dateOptions/$dateOptionId/cancellingDay
+              root.child('matches').child(newData.child('cancellingMatch').val()).child('dateInfo').child('day').val() == newData.child('cancellingDay').val() &&
+              // make sure matches/$match/dateInfo/confirmed was true and now is deleted
+              root.child('matches').child(newData.child('cancellingMatch').val()).child('dateInfo').child('confirmed').val() == true &&
+              !newData.parent().parent().child('matches').child(newData.child('cancellingMatch').val()).child('dateInfo').child('confirmed').exists() &&
+              // make sure there is no code on matches/$match/dateInfo/code
+              !root.child('matches').child(newData.child('cancellingMatch').val()).child('dateInfo').child('code').exists()
+            ) &&
+          	// for all code types, current time should be less than 5am of the date
+          	now < root.child('unix').child('' + newData.child('cancellingDay').val()).val()
+        	)
+        ",
+        "codeType": {
+          ".validate": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() || (data.val() == newData.val())"
+        },
+        "eligibility": {
+          ".validate": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() || (data.val() == newData.val())"
+        }
+      }
+    },
+
+    "status": {
+      ".read": true,
+      ".write": false,
+    },
+
+    "storySubmissions": {
+      ".read": false,
+      "$id": {
+        ".write": "!data.exists()",
+      }
+    },
+
+    "feedback": {
+      ".read": false,
+      "$id": {
+        ".write": "!data.exists()",
+      }
+    },
+
+    "interest": {
+      ".read": false,
+      "$id": {
+        ".write": "!data.exists()",
+      }
+    },
+
+    "landing": {
+      ".read": true,
+      ".write": "root.child('smallProfile').child(auth.uid).child('onboarded').val() != true"
+    },
+
+    "sponsors": {
+      // Only school admins need to read/write
+      ".read": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists()",
+      ".write": "root.child('smallProfile').child(auth.uid).child('schoolAdmin').exists() && newData.exists()",
+    },
+
+    "reportList": {
+      ".read": false,
+      "$id": {
+        ".write": "auth.uid != null && !data.exists()",
+      }
+    },
+
+    "unix": {
+      ".read": true,
+      ".write": false,
+    },
+
+    // don't allow read/write to anything else
+    "$other": {
+      ".read": false,
+      ".write": false
+    },
+  }
+}

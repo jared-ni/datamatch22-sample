@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://internal.datamatch.me"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

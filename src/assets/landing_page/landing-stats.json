@@ -1,0 +1,45 @@
+{
+	"statistics":
+	[
+		{
+			"percentage": 10, 
+			"description": "of users used Crush Roulette in 2021" 
+		},
+		{
+			"percentage": 3, 
+			"description": "of users appeared in Crush Roulette more than once in 2021"
+		},
+		{
+			"percentage": 14, 
+			"description": "of users in 2021 had more than one mutual match"
+		},
+		{
+			"percentage": 56, 
+			"description": "of users in 2021 confirmed one of their algorithmically generated matches"
+		},
+		{
+			"percentage": 6, 
+			"description": "of users in 2021 confirmed all of their algorithmically generated matches"
+		},
+		{
+			"percentage": 51, 
+			"description": "of Caltech users had a mutual match in 2021, the most of any school"
+		},
+		{
+			"percentage": 30, 
+			"description": "of Harvard users in 2021 used Crush Roulette, the most of any school"
+		},
+		{
+			"percentage": 3, 
+			"description": "of users in 2021 had more than 3 mutual matches, lower than any US college admission rate"
+		},
+		{
+			"percentage": 37, 
+			"description": "of matches generated in 2021 were for frienship"
+		},
+		{
+			"percentage": 63, 
+			"description": "of matches generated in 2021 were for love"
+		}
+	]
+}

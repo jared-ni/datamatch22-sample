@@ -1,0 +1,850 @@
+{
+  "college_to_dateOption": {
+    "Brown": [
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q"
+    ],
+    "Dartmouth": [
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q"
+    ],
+    "FIT": [],
+    "Harvard": [
+      "-MvH2bwN1qKbTUVjg2b-",
+      "-MvHEWArei6NoJ7GUKsv",
+      "-MvHFRSDPS7kheeRhQpy",
+      "-MvHGPK2fmWCKuBOgo_u",
+      "-MvHHc4EMh00xXRB0n_A",
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q",
+      "-Mvla7fEKMtgELd4zik-",
+      "-MvoBBbcZvo2DydF4-B5"
+    ],
+    "MIT": [
+      "-MvHEWArei6NoJ7GUKsv",
+      "-MvH2bwN1qKbTUVjg2b-"
+    ],
+    "Macalester": [
+      "-Mva5lV-DgrglsrFI10N"
+    ],
+    "McGill": [],
+    "Princeton": [
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q"
+    ],
+    "Queens": [],
+    "UC Berkeley": [
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q"
+    ],
+    "UCSD": [],
+    "UChicago": [
+      "-Mv4gOTsek9XRnQvbf6k",
+      "-MvLwZaudzJ6glz-JnoT",
+      "-MvLxKKax-NoxMUKR_HD"
+    ],
+    "UPenn": [
+      "-MvQNXO3gOP3Hb9BdUWT",
+      "-MvWOR4cDEBNFH0RFbKt",
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q"
+    ],
+    "UW Madison": [
+      "-MvqVHq2VvagJwomsEWb",
+      "-MvqYGiF4Z3KuwmCMuTj",
+      "-MvqZ2JQUde5klAtFOiW",
+      "-Mvqb6Scb8gO6AWcOv2Z"
+    ],
+    "Vanderbilt": [],
+    "WashU": [],
+    "Yale": [
+      "-MvHIomYX436H9biBYR8",
+      "-MvlKglWoyvJeFJ9N00Q"
+    ]
+  },
+  "college_to_dorm": {
+    "Bowdoin": [
+      "Appleton",
+      "Hyde",
+      "Moore",
+      "West",
+      "Coleman",
+      "Maine",
+      "Osher",
+      "52 Harps",
+      "Federal Street",
+      "Bruns Apts",
+      "Chambo",
+      "The Tower",
+      "Harps",
+      "Howard",
+      "Mayflower",
+      "Park Row",
+      "Pine",
+      "Smith House",
+      "Stowe ~Hall~",
+      "Stowe ~Inn~",
+      "Off-Campus (Athlete)",
+      "Off-Campus (NARP)",
+      "Winthrop",
+      "Reed",
+      "Baxter",
+      "Quinby",
+      "Burnett",
+      "Boody-Johnson",
+      "Ladd",
+      "Helm (RIP)",
+      "Mac",
+      "Howell"
+    ],
+    "Brown": [
+      "Keeney Quad",
+      "Andrews/Metcalf/Miller",
+      "New Pembroke",
+      "EmWool",
+      "Wellness",
+      "New Dorm/Greg",
+      "Barbour",
+      "Young O",
+      "Caswell/Hegemann",
+      "Grad Center",
+      "MoChamp",
+      "Littlefield",
+      "Perkins",
+      "Minden",
+      "Hope/Slater",
+      "Wriston Quad",
+      "315 Thayer",
+      "Program Housing",
+      "Off-Campus"
+    ],
+    "CEGEPS": [
+      "Dawson",
+      "Vanier",
+      "Champlain",
+      "John Abbott",
+      "Marianopolis"
+    ],
+    "CMU": [
+      "CFA",
+      "CIT",
+      "SCS",
+      "Dietrich",
+      "MCS",
+      "Tepper",
+      "Heinz"
+    ],
+    "Caltech": [
+      "Avery",
+      "Blacker",
+      "Dabney",
+      "Fleming",
+      "Lloyd",
+      "Page",
+      "Ricketts",
+      "Ruddock",
+      "Bechtel",
+      "Off campus",
+      "Grad (Datamatch is for undergrads only!)"
+    ],
+    "Carleton": [
+      "Burton",
+      "Cassat",
+      "Davis",
+      "Evans",
+      "Faculty Club",
+      "Goodhue",
+      "Interest House",
+      "James or Memo",
+      "Musser",
+      "Myers",
+      "Nourse",
+      "Sevy",
+      "Townhouse",
+      "Watson",
+      "Off campus",
+      "Other"
+    ],
+    "Claremont": [
+      "Claremont McKenna ",
+      "Scripps",
+      "Pomona",
+      "Harvey Mudd",
+      "Pitzer"
+    ],
+    "Columbia": [
+      "Columbia College",
+      "SEAS",
+      "GS",
+      "Barnard"
+    ],
+    "Concordia": [
+      "School of Business",
+      "School of Graduate Studies",
+      "Faculty of Fine Arts",
+      "Faculty of Arts and Sciences",
+      "School of Engineering and Computer Science"
+    ],
+    "Dartmouth": [
+      "School House",
+      "North Park House",
+      "Allen House",
+      "South House",
+      "West House",
+      "East Wheelock House"
+    ],
+    "Emory": [
+      "Emory College",
+      "Goizueta Business School",
+      "Nell Hodgson Woodruff School of Nursing",
+      "Oxford College"
+    ],
+    "FIT": [
+      "Alumni Hall",
+      "Coed Hall",
+      "Nagler Hall",
+      "Kaufman Hall",
+      "Commuter"
+    ],
+    "Furman": [
+      "Africana Studies",
+      "Anthropology",
+      "Art",
+      "Asian Studies",
+      "Biology",
+      "Business & Accounting",
+      "Chemistry",
+      "Classics",
+      "Communications Studies",
+      "Computer Science",
+      "Earth, Environmental, & Sustainability Sciences",
+      "Economics",
+      "Education",
+      "English",
+      "Health Sciences",
+      "History",
+      "Individualized Curriculum Program",
+      "Mathematics",
+      "Modern Languages & Literatures",
+      "Music",
+      "Neuroscience",
+      "Philosophy",
+      "Physics",
+      "Politics & International Affairs",
+      "Psychology",
+      "Religion",
+      "Sociology",
+      "Theatre Arts",
+      "Urban Studies",
+      "Women's, Gender, & Sexuality Studies"
+    ],
+    "Harvard": [
+      "Adams",
+      "Cabot",
+      "Currier",
+      "Dunster",
+      "Eliot",
+      "Kirkland",
+      "Leverett",
+      "Lowell",
+      "Mather",
+      "Pforzheimer",
+      "Quincy",
+      "Winthrop",
+      "Yard",
+      "Dudley"
+    ],
+    "Harvard-MIT": [
+      "Radcliffe",
+      "HSPH",
+      "HMS",
+      "HLS",
+      "HKS",
+      "GSE",
+      "HDS",
+      "GSD",
+      "HSDM",
+      "HBS",
+      "HES",
+      "SEAS ",
+      "GSAS"
+    ],
+    "Iowa": [
+      "College of Liberal Arts & Sciences",
+      "College of Engineering",
+      "College of Business",
+      "College of Public Health",
+      "College of Nursing",
+      "College of Dentistry",
+      "College of Education",
+      "Graduate Program",
+      "Burge Residence Hall",
+      "Catlett Residence Hall",
+      "Daum Residence Hall",
+      "Stanley Residence Hall",
+      "Currier Residence Hall",
+      "Rienow Residence Hall",
+      "Slater Residence Hall",
+      "Hillcrest Residence Hall",
+      "Mayflower Residence Hall"
+    ],
+    "LMU": [
+      "College of Business Administration",
+      "College of Communications and Fine Arts",
+      "Bellarmine College of Liberal Arts",
+      "Seaver College of Science and Engineering",
+      "Loyola Law School",
+      "School of Education",
+      "School of Film and Television"
+    ],
+    "MIT": [
+      "Maseeh",
+      "McCormick",
+      "Baker",
+      "MacGregor",
+      "New",
+      "Next",
+      "Simmons",
+      "New Vassar (West Garage)",
+      "FSILG",
+      "Burton-Conner (rip)",
+      "70 Amherst",
+      "Ashdown",
+      "Edgerton",
+      "Site 4",
+      "Sidney-Pacific",
+      "Tang",
+      "The Warehouse",
+      "Westgate",
+      "Random",
+      "EAsT camPUS",
+      "Other"
+    ],
+    "Macalester": [
+      "Doty",
+      "Turck",
+      "Bigelow",
+      "Wallace",
+      "30 Mac",
+      "Dupre",
+      "Cottages",
+      "GDD",
+      "Grand Cambridge Apartment",
+      "Kirk",
+      "Veggie Co-op",
+      "C-House",
+      "Langauge Houses"
+    ],
+    "McGill": [
+      "Arts",
+      "Education",
+      "Science",
+      "Arts and Science",
+      "Medicine",
+      "Law",
+      "Management",
+      "Engineering",
+      "Agricultural and Environmental Sciences",
+      "Continuing Studies",
+      "Dentistry"
+    ],
+    "NYU": [
+      "Alumni",
+      "Brittany",
+      "Broome",
+      "Carlyle Court",
+      "Coral Tower",
+      "Founders",
+      "Goddard",
+      "Gramercy",
+      "Greenwich",
+      "Lafayette",
+      "Lipton",
+      "Palladium",
+      "Rubin",
+      "Second Street",
+      "Senior House",
+      "Seventh Street",
+      "Third North",
+      "U Hall",
+      "Weinstein",
+      "Off campus",
+      "Out of State",
+      "International"
+    ],
+    "Northeastern": [
+      "College of Arts, Media and Design",
+      "D'Amore-Mckim School of Business",
+      "Khoury College of Computer Sciences",
+      "College of Engineering",
+      "Bouve College of Health Sciences",
+      "College of Professional Studies",
+      "College of Science",
+      "College of Social Sciences and Humanities"
+    ],
+    "OSU": [
+      "College of Agricultural Sciences",
+      "College of Business",
+      "College of Earth, Ocean and Atmospheric Science",
+      "College of Engineering",
+      "College of Education",
+      "College of Forestry",
+      "College of Liberal Arts",
+      "College of Pharmacy",
+      "College of Public Health and Human Sciences",
+      "College of Science",
+      "College of Veterinary Medicine"
+    ],
+    "Princeton": [
+      "Rockefeller",
+      "Mathey",
+      "Forbes",
+      "Whitman",
+      "First",
+      "Butler"
+    ],
+    "Queens": [
+      "Eng",
+      "Kin",
+      "ArtSci",
+      "Con-ed",
+      "Nursing",
+      "Computing",
+      "Health Sci",
+      "Commerce",
+      "Law"
+    ],
+    "Smith": [
+      "Comstock",
+      "Haven/Wesley",
+      "Gardiner",
+      "Morrow",
+      "Sessions Complex",
+      "Wilder",
+      "Wilson",
+      "Albright",
+      "Baldwin",
+      "Chapin",
+      "Duckett",
+      "Hubbard",
+      "Lawrence",
+      "Morris",
+      "Tyler",
+      "Washburn",
+      "Capen",
+      "Cutter",
+      "Gillette",
+      "Lamont",
+      "Northrop",
+      "Talbot",
+      "Ziskind",
+      "Cushing",
+      "Emerson",
+      "Friedman Apartments",
+      "Jordan",
+      "King",
+      "Park Complex",
+      "Parsons",
+      "Scales",
+      "Chase",
+      "Hopkins",
+      "Tenney"
+    ],
+    "Tufts": [
+      "School of Arts and Sciences",
+      "SMFA",
+      "School of Engineering",
+      "Graduate School"
+    ],
+    "UC Berkeley": [
+      "Unit 1",
+      "Unit 2",
+      "Unit 3",
+      "Clark Kerr",
+      "Foothill",
+      "Blackwell",
+      "Off-Campus: Northside",
+      "Off-Campus: Southside",
+      "Off-Campus: Downtown",
+      "Other"
+    ],
+    "UC Davis": [
+      "Primero",
+      "Segundo",
+      "Tercero",
+      "Cuarto",
+      "The Green",
+      "West Village ",
+      "Downtown Davis ",
+      "Central Davis",
+      "North Davis",
+      "East Davis",
+      "West Davis",
+      "South Davis ",
+      "Commute to Campus  ",
+      "Other "
+    ],
+    "UCLA": [
+      "Arts and Architecture",
+      "Letters and Sciences",
+      "Engineering",
+      "Music",
+      "Nursing",
+      "Public Affairs",
+      "Theater, Film, and Television"
+    ],
+    "UCSD": [
+      "Sixth",
+      "Muir",
+      "Marshall",
+      "Seventh",
+      "ERC",
+      "Revelle",
+      "Warren"
+    ],
+    "UChicago": [
+      "North",
+      "Max Palevsky East",
+      "Max Palevsky West",
+      "Woodlawn",
+      "Renee Granville-Grossman (South)",
+      "Burton Judson (BJ)",
+      "International House (I-House)",
+      "Off Campus Housing",
+      "Vue 53",
+      "Undergraduate",
+      "Graduate",
+      "Snell-Hitchcock"
+    ],
+    "UIC": [],
+    "UPenn": [
+      "Nursing",
+      "Wharton",
+      "College",
+      "Engineering",
+      "Fancy dual degrees or something"
+    ],
+    "USC": [
+      "Dornsife College of Letters, Arts and Sciences",
+      "USC School of Architecture",
+      "Roski School of Art and Design",
+      "Iovine and Young Academy for Arts, Technology and the Business of Innovation",
+      "Marshall School of Business",
+      "USC School of Cinematic Arts",
+      "Annenberg School for Communication and Journalism",
+      "Kaufman School of Dance",
+      "USC School of Dramatic Arts",
+      "Viterbi School of Engineering",
+      "Davis School of Gerontology",
+      "Keck School of Medicine",
+      "Thornton School of Music",
+      "Chan Division of Occupational Science and Occupational Therapy",
+      "Gould School of Law",
+      "USC School of Pharmacy",
+      "Price School of Public Policy",
+      "Pre-professional Emphases",
+      "Other"
+    ],
+    "UToronto": [
+      "Faculty of Arts and Science",
+      "Faculty of Engineering",
+      "Rotman School of Management",
+      "Faculty of Law",
+      "Faculty of Music",
+      "Architecture, Landscape and Design",
+      "Faculty of Dentistry",
+      "Faculty of Education",
+      "Faculty of Information",
+      "Faculty of Kinesiology & Physical Education",
+      "Faculty of Medicine",
+      "Faculty of Nursing",
+      "Faculty of Pharmacy",
+      "Faculty of Public Health",
+      "Faculty of Social Work"
+    ],
+    "UW Madison": [
+      "Southeast",
+      "Lakeshore",
+      "Sophomore Slums",
+      "Regent/Greenbush",
+      "Mifflin",
+      "Langdon/State",
+      "Capitol Area",
+      "Camp Randall/Lathrop",
+      "Central Campus",
+      "Eagle Heights/UW Hospital"
+    ],
+    "Vanderbilt": [
+      "Highland",
+      "Commons",
+      "EBI",
+      "Zeppos",
+      "Kissam",
+      "Cole",
+      "McGill",
+      "Tolman",
+      "McTyeire",
+      "Branscomb",
+      "Village",
+      "Diermier's Penthouse",
+      "Off Campus"
+    ],
+    "WashU": [
+      "HIG (Hitzeman, Hurd, Meyers)",
+      "LeeBeau",
+      "Liggett-Koenig",
+      "Park Mudd",
+      "Brookings (Lien + Gregg)",
+      "JKL (Shanedling, Dauten, Rutledge)",
+      "Eliot (A + B)",
+      "Umrath and Zetcher",
+      "Wayman Crow (Dardick + Nemerov)",
+      "WGE (Danforth, Shepley, Wheeler)",
+      "The Village (Village + Lopata)",
+      "Apartments South (Greenway, UDrive, Millbrook, Veast)",
+      "OFF-CAMPUS: The Loop area",
+      "OFF-CAMPUS: Skinker Debaliviere",
+      "OFF-CAMPUS: Forsyth + Everywhere Else"
+    ],
+    "Wesleyan": [
+      "The Butterfields",
+      "Clark",
+      "Bennet",
+      "Hewitt",
+      "The Nicolsons",
+      "200 Church",
+      "WestCo",
+      "High Rise",
+      "Low Rise",
+      "Program Houses",
+      "Senior Houses"
+    ],
+    "Yale": [
+      "Ezra Stiles",
+      "Morse",
+      "Pierson",
+      "Davenport",
+      "Saybrook",
+      "Trumbull",
+      "Branford",
+      "Grace Hopper",
+      "Pauli Murray",
+      "Ben Franklin",
+      "Silliman ",
+      "Timothy Dwight ",
+      "Berkeley ",
+      "Jonathan Edwards"
+    ]
+  },
+  "college_to_email": {
+    "Bowdoin": [
+      "bowdoin.edu"
+    ],
+    "Brown": [
+      "brown.edu"
+    ],
+    "CEGEPS": [
+      "dawsoncollege.qc.ca",
+      "champlaincollege.qc.ca",
+      "stu.champlaincollege.qc.ca",
+      "vaniercollege.qc.ca",
+      "edu.vaniercollege.qc.ca",
+      "marianopolis.com",
+      "johnabbottcollege.qc.ca",
+      "office.marianopolis.edu",
+      "johnabbottcollege.net"
+    ],
+    "CMU": [
+      "andrew.cmu.edu"
+    ],
+    "Caltech": [
+      "caltech.edu"
+    ],
+    "Carleton": [
+      "carleton.edu"
+    ],
+    "Claremont": [
+      "cmc.edu",
+      "scrippscollege.edu",
+      "mymail.pomona.edu",
+      "hmc.edu",
+      "students.pitzer.edu",
+      "pitzer.edu",
+      "students.claremontmckenna.edu",
+      "g.hmc.edu"
+    ],
+    "Columbia": [
+      "columbia.edu",
+      "barnard.edu"
+    ],
+    "Concordia": [
+      "live.concordia.ca ",
+      "mail.concordia.ca",
+      "concordia.ca"
+    ],
+    "Dartmouth": [
+      "dartmouth.edu"
+    ],
+    "Emory": [
+      "emory.edu"
+    ],
+    "FIT": [
+      "fitnyc.edu"
+    ],
+    "Furman": [
+      "furman.edu"
+    ],
+    "Harvard": [
+      "college.harvard.edu"
+    ],
+    "Harvard-MIT": [
+      "g.harvard.edu",
+      "hms.harvard.edu",
+      "hsps.harvard.edu",
+      "gse.harvard.edu",
+      "hds.harvard.edu",
+      "hsdm.harvard.edu",
+      "seas.harvard.edu",
+      "hks.harvard.edu",
+      "law.harvard.edu",
+      "mba.hbs.edu",
+      "mba2022.hbs.edu",
+      "mba2023.hbs.edu",
+      "mba2024.hbs.edu",
+      "hbs.edu",
+      "gsd.harvard.edu",
+      "jd24.law.harvard.edu",
+      "jd23.law.harvard.edu",
+      "jd22.law.harvard.edu"
+    ],
+    "Iowa": [
+      "uiowa.edu"
+    ],
+    "LMU": [
+      "lion.lmu.edu",
+      "lmu.edu"
+    ],
+    "MIT": [
+      "mit.edu",
+      "media.mit.edu",
+      "sloan.mit.edu"
+    ],
+    "Macalester": [
+      "macalester.edu"
+    ],
+    "McGill": [
+      "mail.mcgill.ca"
+    ],
+    "NYU": [
+      "nyu.edu"
+    ],
+    "Northeastern": [
+      "northeastern.edu"
+    ],
+    "OSU": [
+      "oregonstate.edu"
+    ],
+    "Princeton": [
+      "princeton.edu"
+    ],
+    "Queens": [
+      "queensu.ca",
+      "ams.queensu.ca",
+      "engsoc.queensu.ca"
+    ],
+    "Smith": [
+      "smith.edu"
+    ],
+    "Tufts": [
+      "tufts.edu"
+    ],
+    "UC Berkeley": [
+      "berkeley.edu"
+    ],
+    "UC Davis": [
+      "ucdavis.edu"
+    ],
+    "UCLA": [
+      "ucla.edu",
+      "g.ucla.edu"
+    ],
+    "UCSD": [
+      "ucsd.edu"
+    ],
+    "UChicago": [
+      "UChicago.edu",
+      "uchicago.edu"
+    ],
+    "UIC": [
+      "uic.edu"
+    ],
+    "UPenn": [
+      "sas.upenn.edu",
+      "seas.upenn.edu",
+      "wharton.upenn.edu",
+      "nursing.upenn.edu",
+      "design.upenn.edu",
+      "upenn.edu",
+      "dental.upenn.edu"
+    ],
+    "USC": [
+      "usc.edu"
+    ],
+    "UToronto": [
+      "mail.utoronto.ca",
+      "utoronto.ca"
+    ],
+    "UW Madison": [
+      "wisc.edu"
+    ],
+    "Vanderbilt": [
+      "vanderbilt.edu"
+    ],
+    "WashU": [
+      "wustl.edu",
+      "email.wustl.edu"
+    ],
+    "Wesleyan": [
+      "wesleyan.edu"
+    ],
+    "Yale": [
+      "yale.edu"
+    ]
+  },
+  "college_to_sponsors": {
+    "Bowdoin": [],
+    "CEGEPS": [],
+    "CMU": [],
+    "Concordia": [
+      "-MvKXpZiDF9w2t1khETH"
+    ],
+    "Dartmouth": [],
+    "Furman": [
+      "-Mv9ZBiznKa5weC-0Hwe",
+      "-Mv9ZXLjkyvrOsDc66Dz"
+    ],
+    "Harvard": [
+      "-MvGcbiM-e-cXWwFAaW5",
+      "-MvGe6UmobIfutoJdRt2",
+      "-MvGsnnO8jscnSnZhL0i",
+      "-MvGtjR-4lW_pQRnjS1e",
+      "-MvGvhCCMHBrK1Yx4LW9",
+      "-MvGwOwnVMjBX78pKm-n"
+    ],
+    "Harvard-MIT": [],
+    "MIT": [
+      ""
+    ],
+    "Macalester": [
+      "-MvChIEd4z_xjjpdZgKo"
+    ],
+    "Princeton": [],
+    "Queens": [],
+    "UW Madison": [
+      "-Mv7vQcqEiiLsRbeRofs",
+      "-MvF3tvan1FF8dz9ZqJc",
+      "-MvFAIHgwi07fVMmU0Aa"
+    ],
+    "Wesleyan": []
+  }
+}

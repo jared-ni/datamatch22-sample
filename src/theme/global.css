@@ -1,0 +1,215 @@
+/* import fonts */
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/apercu_regular_pro.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu-Mono';
+  src: url(../assets/fonts/apercu-mono-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../assets/fonts/Apercu-Light.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../assets/fonts/apercu_medium_pro.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../assets/fonts/apercu_bold_pro.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: normal;
+  src: url(../assets/fonts/Inconsolata-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: bold;
+  src: url(../assets/fonts/Inconsolata-Bold.ttf) format('truetype');
+}
+
+html,
+body,
+#root,
+.Root {
+  height: 100%;
+  background: #f8e1dd;
+}
+
+.AuthLinks {
+  text-align: center;
+  padding: 20px;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+iframe {
+  border: none;
+}
+
+input,
+select {
+  padding: 10px;
+  height: 50px;
+  border: 1px solid rgba(59, 59, 59, 0.3);
+  background: none;
+  width: 100%;
+}
+
+textarea {
+  padding: 10px;
+  border: 1px solid rgba(59, 59, 59, 0.3);
+  background: none;
+  width: 100%;
+  resize: none;
+}
+
+select {
+  outline: none;
+  border: 1px solid rgba(59, 59, 59, 0.3);
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+input[type='date']:before {
+  content: attr(placeholder) !important;
+  color: rgba(59, 59, 59, 0.7);
+}
+
+input[type='date']:focus:before,
+input[type='date']:valid:before {
+  content: '';
+}
+
+input[type='month']:before {
+  content: attr(placeholder) !important;
+  color: #6e789e;
+}
+
+input[type='month']:focus:before,
+input[type='month']:valid:before {
+  content: '';
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+table,
+th,
+td {
+  border: 2px solid grey;
+  padding: 0.7em;
+}
+
+/* React modal styling */
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* React autocomplete styling */
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.react-autosuggest__input {
+  width: 240px;
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #b1b1b1;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* if the input is empty or not focused, don't display the instructions  */
+:not(.react-autosuggest__input--focused):not(.react-autosuggest__input--open)
+  + .react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__suggestions-container,
+.react-autosuggest__suggestions-container--open {
+  display: block;
+  border: 1px solid #b1b1b1;
+  background-color: #fff;
+  font-size: 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+  text-align: left;
+}
+
+.react-autosuggest__suggestions-container:empty {
+  border: none;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  border: 1px solid #b1b1b1;
+  padding: 10px 20px;
+}
+
+/* Navbar styling */
+/* used by the Navbar header and footer */
+.Navbar {
+  position: fixed;
+  z-index: 301;
+  display: flex;
+  width: 100%;
+  background: #ffffff;
+}
+
+/* used by the Navbar header and footer */
+.roundProfilePic {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+/* used in authentication pages: login, register, password reset */
+.Warning {
+  font-size: 14px;
+  color: #dc143c;
+}
